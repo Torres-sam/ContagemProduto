@@ -28,6 +28,9 @@ namespace ContagemProduto
             Console.WriteLine("----------------------------");
             Console.Write("Peso Caixa: ");
             double pesoCaixa = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.WriteLine("----------------------------");
+            Console.Write("Nome da Pessoa: ");
+            string nomeUsuario = Console.ReadLine();
             Console.WriteLine("============================");
             double totalEmbalagem = ((embalagemPeca * quantidadePeca) + pesoCaixa) * quantidadeCaixa;
             double pesoLiquido = pesoBruto - totalEmbalagem;
@@ -40,6 +43,10 @@ namespace ContagemProduto
             Console.WriteLine($"Peso Caixa: {pesoCaixa.ToString("F3", CultureInfo.InvariantCulture)} kg");
             Console.WriteLine($"Total de Embalagem: {totalEmbalagem.ToString("F3", CultureInfo.InvariantCulture)} kg");
             Console.WriteLine($"Peso Líquido: {pesoLiquido.ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine($"Data de Pesagem: {DateTime.Now.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"Hora de Pesagem: {DateTime.Now.ToString("HH:mm:ss")}");
+            Console.WriteLine($"Pesado por: {nomeUsuario}");
             Console.WriteLine("============================");
 
 
