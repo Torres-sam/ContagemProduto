@@ -14,18 +14,18 @@ namespace ContagemProduto
             string resposta = Console.ReadLine().ToUpper();
             Console.WriteLine("----------------------------");
             double pesoPallet = 0.0;
-            if (resposta == "S") {                
+            if (resposta == "N") {                
                 Console.Write("Peso do Pallet: ");
                 pesoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                 Console.WriteLine("----------------------------");
             }
-            else if (resposta == "N")
+            else if (resposta == "S")
             {
                 pesoPallet = 0.0;
             }
             else
             {
-                Console.WriteLine("Resposta inválida. Considerando peso do pallet como 0.");
+                Console.WriteLine("Resposta inválida. Considerando peso do pallet como 0.0");
             }
             Console.Write("Fornecedor: ");
             string fornecedor = Console.ReadLine().ToUpper();
