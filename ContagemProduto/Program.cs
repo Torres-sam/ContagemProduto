@@ -10,7 +10,7 @@ namespace ContagemProduto
             Console.WriteLine("----------------------------");
             Console.WriteLine("Informe os dados do produto:");
             Console.WriteLine("----------------------------");
-            Console.Write("Deseja por o peso do Pallet? S/N ");
+            Console.Write("já foi tirado o peso do pallet? S/N ");
             string resposta = Console.ReadLine().ToUpper();
             Console.WriteLine("----------------------------");
             double pesoPallet = 0.0;
@@ -82,8 +82,8 @@ namespace ContagemProduto
                 Console.WriteLine($"Embalagem Peça: {embalagemPeca.ToString("F3", CultureInfo.InvariantCulture)} kg");
                 Console.WriteLine($"Quantidade de Caixa: {quantidadeCaixa}");
                 Console.WriteLine($"Peso Caixa: {pesoCaixa.ToString("F3", CultureInfo.InvariantCulture)} kg");
-                Console.WriteLine($"Total de Embalagem: {totalEmbalagem.ToString("F3", CultureInfo.InvariantCulture)} kg");
                 Console.WriteLine($"Peso do Pallet: Não foi nescessario!!!");
+                Console.WriteLine($"Total de Embalagem: {totalEmbalagem.ToString("F3", CultureInfo.InvariantCulture)} kg");               
                 Console.WriteLine($"Peso Líquido: {pesoLiquido.ToString("F3", CultureInfo.InvariantCulture)} kg");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine($"Data de Pesagem: {DateTime.Now.ToString("dd/MM/yyyy")}");
