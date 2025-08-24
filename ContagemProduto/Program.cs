@@ -1,32 +1,40 @@
 ﻿using System;
 using System.Globalization;
+using ContagemProduto.Models;
 namespace ContagemProduto
 {
     internal class Program
     {
         static void Main(string[] args)
-        {
+        { 
+                 
+            Console.Clear();      
             Console.WriteLine($"{new String('=', 3)} Calculando o Liquido {new string('=',3)}");
             Console.WriteLine("----------------------------");
             Console.WriteLine("Informe os dados do produto:");
             Console.WriteLine("----------------------------");
-            Console.Write("já foi tirado o peso do pallet? S/N ");
-            string resposta = Console.ReadLine().ToUpper();
-            Console.WriteLine("----------------------------");
+            string resposta;
             double pesoPallet = 0.0;
-            if (resposta == "N") {                
-                Console.Write("Peso do Pallet: ");
-                pesoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            do
+            {
+                Console.Write("já foi tirado o peso do pallet? S/N ");
+                resposta = Console.ReadLine().ToUpper();
                 Console.WriteLine("----------------------------");
-            }
-            else if (resposta == "S")
-            {
-                pesoPallet = 0.0;
-            }
-            else
-            {
-                Console.WriteLine("Resposta inválida. Considerando peso do pallet como 0.0");
-            }
+                if (resposta == "N")
+                {
+                    Console.Write("Peso do Pallet: ");
+                    pesoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Console.WriteLine("----------------------------");
+                }
+                else if (resposta == "S")
+                {
+                    pesoPallet = 0.0;
+                }
+                else
+                {
+                    Console.WriteLine("Resposta inválida. Por favor, responda com 'S' ou 'N'.");
+                }                
+            } while (resposta != "S" && resposta != "N");
             Console.Write("Fornecedor: ");
             string fornecedor = Console.ReadLine().ToUpper();
             Console.WriteLine("----------------------------");
@@ -55,7 +63,7 @@ namespace ContagemProduto
             double pesoLiquido = pesoBruto - totalEmbalagem - pesoPallet;
 
             if (pesoPallet != 0.0)
-            {
+            {                
                 pesoBruto -= pesoPallet;
                 Console.WriteLine($"Fornecedor: {fornecedor}");
                 Console.WriteLine($"Produto: {produto}");
@@ -74,7 +82,7 @@ namespace ContagemProduto
                 Console.WriteLine("============================");
             }
             else
-            {
+            {                
                 Console.WriteLine($"Fornecedor: {fornecedor}");
                 Console.WriteLine($"Produto: {produto}");
                 Console.WriteLine($"Peso Bruto: {pesoBruto.ToString("F3", CultureInfo.InvariantCulture)} kg");
