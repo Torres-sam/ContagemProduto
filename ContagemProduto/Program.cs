@@ -113,25 +113,34 @@ namespace ContagemProduto
                             {
                                 Console.WriteLine($"#{i + 1} - {produtos[i].NomeProduto}");
                             }
-                            Console.WriteLine("Escolha o número do produto a remover: ");
-                            Console.Write("Número: ");
-                            int index = int.Parse(Console.ReadLine()) - 1;
 
-                            if (index >= 0 && index < produtos.Count)
+                            Console.Write("Digite o número do produto a remover ou 0 para cancelar:");                            
+                            int escolha = int.Parse(Console.ReadLine());
+                            Console.WriteLine("----------------------");
+
+                            if (escolha == 0)
                             {
-                                produtos.RemoveAt(index); 
-                                Console.WriteLine("----------------------");                               
-                                Console.WriteLine("Produto removido com sucesso!");
+                                Console.WriteLine("Operação cancelada. Nenhum produto foi removido.");
                             }
                             else
                             {
-
-                                Console.WriteLine("Número inválido!");
+                                int index = escolha - 1;
+                                if (index >= 0 && index < produtos.Count)
+                                {
+                                    produtos.RemoveAt(index);
+                                    Console.WriteLine("----------------------");
+                                    Console.WriteLine("Produto removido com sucesso!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Número inválido!");
+                                }
                             }
                         }
+
                         Console.WriteLine("Pressione ENTER para continuar");
                         Console.ReadLine();
-                        break;                   
+                        break;                  
 
                     case "4":
                         Console.WriteLine("Encerrando o programa...");
