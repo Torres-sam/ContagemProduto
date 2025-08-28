@@ -17,48 +17,63 @@ namespace ContagemProduto.Models
 
         public void AdicionarInformacaoProduto()
         {
-            Console.WriteLine("----------------------------");
-            Console.Write("já foi tirado o peso do pallet? S/N ");
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║📝 Cadastro de Informações do Produto ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
+            Console.WriteLine();
+
+            Console.Write("👉 Já foi tirado o peso do pallet? (S/N): ");
             string resposta = Console.ReadLine().ToUpper();
-            Console.WriteLine("----------------------------");
-            double pesoPallet = 0.0;
+            Console.WriteLine("────────────────────────────────────────");
+
             if (resposta == "N")
             {
-                Console.Write("Peso do Pallet: ");
-                pesoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Console.WriteLine("----------------------------");
+                Console.Write("➡ Informe o peso do Pallet: ");
+                PesoDoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                Console.WriteLine("✅ Peso do pallet registrado!");
             }
             else if (resposta == "S")
             {
-                pesoPallet = 0.0;
+                PesoDoPallet = 0.0;
+                Console.WriteLine("⚠ Peso do pallet desconsiderado!");
             }
             else
             {
-                Console.WriteLine("Resposta inválida. Considerando peso do pallet como 0.0");
+                PesoDoPallet = 0.0;
+                Console.WriteLine("⚠ Resposta inválida! Peso do pallet considerado como 0.0");
             }
-            Console.Write("Fornecedor: ");
+
+            Console.WriteLine();
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║        🔎 Dados do Produto           ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
+
+            Console.Write("➡ Fornecedor: ");
             Fornecedor = Console.ReadLine().ToUpper();
-            Console.WriteLine("----------------------------");
-            Console.Write("Produto: ");
+
+            Console.Write("➡ Produto: ");
             NomeProduto = Console.ReadLine().ToUpper();
-            Console.WriteLine("----------------------------");
-            Console.Write("Peso Bruto: ");
+
+            Console.Write("➡ Peso Bruto (kg): ");
             PesoBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.WriteLine("----------------------------");
-            Console.Write("Quantidade de Peça: ");
+
+            Console.Write("➡ Quantidade de Peças: ");
             QuantidadeDePeca = int.Parse(Console.ReadLine());
-            Console.WriteLine("----------------------------");
-            Console.Write("Embalagem Peça: ");
+
+            Console.Write("➡ Peso da Embalagem por Peça (kg): ");
             EmbalagemPeca = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.WriteLine("----------------------------");
-            Console.Write("Quantidade de Caixa: ");
+
+            Console.Write("➡ Quantidade de Caixas: ");
             QuantidadeDeCaixa = int.Parse(Console.ReadLine());
-            Console.WriteLine("----------------------------");
-            Console.Write("Peso Caixa: ");
+
+            Console.Write("➡ Peso da Caixa (kg): ");
             PesoDaCaixa = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.WriteLine("----------------------------");
-            Console.Write("Nome da Pessoa: ");
+
+            Console.Write("➡ Nome do Operador: ");
             NomeDoUsuario = Console.ReadLine();
+
+            Console.WriteLine();
+            
         }
 
         public double PesoEmbalagem()
@@ -69,43 +84,41 @@ namespace ContagemProduto.Models
         public double PesoLiquido()
         {
             double pesoDaEmbalagem = PesoEmbalagem();
-            if (PesoDoPallet != 0.0)
-                return PesoBruto - pesoDaEmbalagem - PesoDoPallet;
-            else
-                return PesoBruto - pesoDaEmbalagem;
+            return PesoBruto - pesoDaEmbalagem - PesoDoPallet;
         }
-        
+
         public void MostrarDadosResumidos()
         {
-            Console.WriteLine($"Produto: {NomeProduto} - Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)}");
-        }        
+            Console.WriteLine($"📦 Produto: {NomeProduto} | ⚖ Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)} kg");
+        }
 
         public void MostrarDados()
         {
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║        📑 Detalhes do Produto        ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
 
-            Console.WriteLine($"Fornecedor: {Fornecedor}");
-            Console.WriteLine($"Produto: {NomeProduto}");
-            Console.WriteLine($"Peso Bruto: {PesoBruto.ToString("F3", CultureInfo.InvariantCulture)}");
-            Console.WriteLine($"Quantidade de Peça: {QuantidadeDePeca}");
-            Console.WriteLine($"Embalagem Peça: {EmbalagemPeca.ToString("F3", CultureInfo.InvariantCulture)}");
-            Console.WriteLine($"Quantidade de Caixa: {QuantidadeDeCaixa}");
-            Console.WriteLine($"Peso Caixa: {PesoDaCaixa.ToString("F3", CultureInfo.InvariantCulture)}");
+            Console.WriteLine($"➡ Fornecedor: {Fornecedor}");
+            Console.WriteLine($"➡ Produto: {NomeProduto}");
+            Console.WriteLine($"➡ Peso Bruto: {PesoBruto.ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine($"➡ Quantidade de Peças: {QuantidadeDePeca}");
+            Console.WriteLine($"➡ Embalagem por Peça: {EmbalagemPeca.ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine($"➡ Quantidade de Caixas: {QuantidadeDeCaixa}");
+            Console.WriteLine($"➡ Peso da Caixa: {PesoDaCaixa.ToString("F3", CultureInfo.InvariantCulture)} kg");
+
             if (PesoDoPallet != 0.0)
-            {
-                Console.WriteLine($"Peso do Pallet: {PesoDoPallet.ToString("F3", CultureInfo.InvariantCulture)}");
-            }
+                Console.WriteLine($"➡ Peso do Pallet: {PesoDoPallet.ToString("F3", CultureInfo.InvariantCulture)} kg");
             else
-            {
-                Console.WriteLine($"Peso do Pallet: Não foi necessário!");
-            }
-            Console.WriteLine("----------------------------");
-            Console.WriteLine($"Peso da Embalagem: {PesoEmbalagem().ToString("F3", CultureInfo.InvariantCulture)}");
-            Console.WriteLine($"Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)}");
-            Console.WriteLine("----------------------------");
-            Console.WriteLine($"Data de Pesagem: {DateTime.Now:dd/MM/yyyy}");
-            Console.WriteLine($"Hora de Pesagem: {DateTime.Now:HH:mm:ss}");
-            Console.WriteLine($"Pesado por: {NomeDoUsuario}");
-            Console.WriteLine("============================");
+                Console.WriteLine("➡ Peso do Pallet: (não considerado)");
+
+            Console.WriteLine("────────────────────────────────────────");
+            Console.WriteLine($"📦 Peso da Embalagem: {PesoEmbalagem().ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine($"⚖ Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine("────────────────────────────────────────");
+            Console.WriteLine($"📅 Data de Pesagem: {DateTime.Now:dd/MM/yyyy}");
+            Console.WriteLine($"⏰ Hora de Pesagem: {DateTime.Now:HH:mm:ss}");
+            Console.WriteLine($"👤 Operador: {NomeDoUsuario}");
+            Console.WriteLine("════════════════════════════════════════");
         }
     }
 }
