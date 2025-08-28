@@ -18,7 +18,7 @@ namespace ContagemProduto.Models
         public void AdicionarInformacaoProduto()
         {
             Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║📝 Cadastro de Informações do Produto ║");
+            Console.WriteLine(" 📝 Cadastro de Informações do Produto ");
             Console.WriteLine("╚══════════════════════════════════════╝");
             Console.WriteLine();
 
@@ -45,7 +45,7 @@ namespace ContagemProduto.Models
 
             Console.WriteLine();
             Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║        🔎 Dados do Produto           ║");
+            Console.WriteLine("          🔎 Dados do Produto           ");
             Console.WriteLine("╚══════════════════════════════════════╝");
 
             Console.Write("➡ Fornecedor: ");
@@ -95,7 +95,7 @@ namespace ContagemProduto.Models
         public void MostrarDados()
         {
             Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║        📑 Detalhes do Produto        ║");
+            Console.WriteLine("         📑 Detalhes do Produto         ");
             Console.WriteLine("╚══════════════════════════════════════╝");
 
             Console.WriteLine($"➡ Fornecedor: {Fornecedor}");
