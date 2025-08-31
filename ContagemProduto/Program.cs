@@ -31,25 +31,100 @@ namespace ContagemProduto
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        Console.Clear();
-                        Console.WriteLine("╔══════════════════════════════════╗");
-                        Console.WriteLine("       ✨ Cadastro de Produto       ");
-                        Console.WriteLine("╚══════════════════════════════════╝");
 
-                        Produto novoProduto = new Produto();
-                        novoProduto.AdicionarInformacaoProduto();
-                        produtos.Add(novoProduto);
+                        bool cadastrarOutro = true;
+                        while (cadastrarOutro)
+                        {   
+                        Console.Clear();
+                        Console.WriteLine("╔══════════════════════════════════════╗");                                                
+                        Console.WriteLine("         ✨ Cadastro de Produto         ");                                               
+                        Console.WriteLine("╚══════════════════════════════════════╝");                        
+                        Console.WriteLine("╔══════════════════════════════════════╗");
+                        Console.WriteLine(" 📝 Preencha as Informações do Produto ");
+                        Console.WriteLine("╚══════════════════════════════════════╝");
+                        Console.WriteLine();
+
+                        Console.Write("👉 Já foi tirado o peso do pallet? (S/N): ");
+                        string respostaPallet = Console.ReadLine().ToUpper();
+
+                        double pesoDoPallet = 0.0;
+                        if (respostaPallet == "N")
+                        {
+                            Console.Write("➡ Informe o peso do Pallet: ");
+                            pesoDoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                        }
+                        else if (respostaPallet == "S")
+                        {
+                            pesoDoPallet = 0.0;
+                        }
+                        else
+                        {
+                            Console.WriteLine(" ❌ Resposta inválida. Considerando que o peso do pallet é 0.");
+                            pesoDoPallet = 0.0;
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine("╔══════════════════════════════════════╗");
+                        Console.WriteLine("          🔎 Dados do Produto           ");
+                        Console.WriteLine("╚══════════════════════════════════════╝");
+
+                        // Perguntando os dados no console
+                        Console.Write("➡ Fornecedor: ");
+                        string fornecedor = Console.ReadLine().ToUpper();
+
+                        Console.Write("➡ Produto: ");
+                        string nomeProduto = Console.ReadLine().ToUpper();
+
+                        Console.Write("➡ Peso Bruto (kg): ");
+                        double pesoBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                        Console.Write("➡ Quantidade de Peças: ");
+                        int quantidadeDePeca = int.Parse(Console.ReadLine());
+
+                        Console.Write("➡ Peso da Embalagem por Peça (kg): ");
+                        double embalagemPeca = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                        Console.Write("➡ Quantidade de Caixas: ");
+                        int quantidadeDeCaixa = int.Parse(Console.ReadLine());
+
+                        Console.Write("➡ Peso da Caixa (kg): ");
+                        double pesoDaCaixa = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                        Console.Write("➡ Nome do Operador: ");
+                        string nomeDoUsuario = Console.ReadLine();
+
                         
+
+                        // Criando o produto usando o construtor
+                        Produto novoProduto = new Produto(fornecedor, nomeProduto, pesoBruto,
+                                                        quantidadeDePeca, embalagemPeca,
+                                                        quantidadeDeCaixa, pesoDaCaixa,
+                                                        nomeDoUsuario, pesoDoPallet);
+
+                        produtos.Add(novoProduto);
+
                         Console.WriteLine("✅ Produto cadastrado com sucesso!");
+                        Console.WriteLine();
+                        // Pergunta se quer cadastrar outro
+                        Console.Write("Deseja cadastrar outro produto? (S/N): ");
+                        string resposta = Console.ReadLine().ToUpper();
+                            if (resposta != "S")
+                            {
+                                cadastrarOutro = false;
+                                Console.WriteLine("↩ Voltando ao menu...");
+                            }
+                        
+                        }
                         Console.WriteLine("Pressione ENTER para voltar ao menu...");
                         Console.ReadLine();
                         break;
 
+
                     case "2":
                         Console.Clear();
-                        Console.WriteLine("╔══════════════════════════════════╗");
-                        Console.WriteLine("        📋 Lista de Produtos        ");
-                        Console.WriteLine("╚══════════════════════════════════╝");
+                        Console.WriteLine("╔══════════════════════════════════════╗");
+                        Console.WriteLine("         📋 Lista de Produtos           ");
+                        Console.WriteLine("╚══════════════════════════════════════╝");
 
                         if (produtos.Count == 0)
                         {
@@ -85,9 +160,9 @@ namespace ContagemProduto
                                     else if (escolha > 0 && escolha <= produtos.Count)
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("╔══════════════════════════════════╗");
-                                        Console.WriteLine("       🔎 Detalhes do Produto       ");
-                                        Console.WriteLine("╚══════════════════════════════════╝");
+                                        Console.WriteLine("╔══════════════════════════════════════╗");
+                                        Console.WriteLine("          🔎 Detalhes do Produto        ");
+                                        Console.WriteLine("╚══════════════════════════════════════╝");
 
                                         produtos[escolha - 1].MostrarDados();
 
@@ -110,9 +185,9 @@ namespace ContagemProduto
 
                     case "3":
                         Console.Clear();
-                        Console.WriteLine("╔══════════════════════════════════╗");
-                        Console.WriteLine("          🗑 Apagar Produto          ");
-                        Console.WriteLine("╚══════════════════════════════════╝");
+                        Console.WriteLine("╔══════════════════════════════════════╗");
+                        Console.WriteLine("             🗑 Apagar Produto           ");
+                        Console.WriteLine("╚══════════════════════════════════════╝");
 
                         if (produtos.Count == 0)
                         {

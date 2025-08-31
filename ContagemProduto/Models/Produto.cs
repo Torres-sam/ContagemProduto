@@ -5,76 +5,85 @@ namespace ContagemProduto.Models
 {
     public class Produto
     {
-        public string Fornecedor { get; set; }
-        public string NomeProduto { get; set; }
+        public Produto(string fornecedor, string nomeProduto, double pesoBruto,
+        int quantidadeDePeca, double embalagemPeca,
+        int quantidadeDeCaixa, double pesoDaCaixa, string nomeDoUsuario, double pesoDoPallet = 0.0)
+        {
+            Fornecedor = fornecedor;
+            NomeProduto = nomeProduto;
+            PesoBruto = pesoBruto;
+            QuantidadeDePeca = quantidadeDePeca;
+            EmbalagemPeca = embalagemPeca;
+            QuantidadeDeCaixa = quantidadeDeCaixa;
+            PesoDaCaixa = pesoDaCaixa;
+            NomeDoUsuario = nomeDoUsuario;
+            PesoDoPallet = 0.0; // valor padrão
+        }
+        private string _fornecedor;
+        public string Fornecedor
+        {
+            get
+            {
+                return _fornecedor;
+            }
+            set
+            {
+                if (value == "")
+                {
+                    _fornecedor = "⚠ FORNECEDOR NÃO INFORMADO ⚠";
+
+                }
+                else
+                {
+                    _fornecedor = value.ToUpper();
+                }
+            }
+        }
+        private string _nomeProduto;
+        public string NomeProduto
+        {
+            get
+            {
+                return _nomeProduto;                
+            }
+            set
+            {
+                if (value == "")
+                {
+                    _nomeProduto = "⚠ PRODUTO NÃO INFORMADO ⚠";
+                }
+                else
+                {
+                    _nomeProduto = value.ToUpper();
+                }
+            }
+        }
         public double PesoBruto { get; set; }
         public int QuantidadeDePeca { get; set; }
         public double EmbalagemPeca { get; set; }
         public int QuantidadeDeCaixa { get; set; }
         public double PesoDaCaixa { get; set; }
         public double PesoDoPallet { get; set; }
-        public string NomeDoUsuario { get; set; }
-
-        public void AdicionarInformacaoProduto()
+        private string _nomeDoUsuario;
+        public string NomeDoUsuario
         {
-            Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine(" 📝 Cadastro de Informações do Produto ");
-            Console.WriteLine("╚══════════════════════════════════════╝");
-            Console.WriteLine();
-
-            Console.Write("👉 Já foi tirado o peso do pallet? (S/N): ");
-            string resposta = Console.ReadLine().ToUpper();
-            Console.WriteLine("────────────────────────────────────────");
-
-            if (resposta == "N")
-            {
-                Console.Write("➡ Informe o peso do Pallet: ");
-                PesoDoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Console.WriteLine("✅ Peso do pallet registrado!");
+            get
+            { 
+                return _nomeDoUsuario.ToUpper();
             }
-            else if (resposta == "S")
-            {
-                PesoDoPallet = 0.0;
-                Console.WriteLine("⚠ Peso do pallet desconsiderado!");
+            set
+            { 
+                if (value == "")
+                {
+                    _nomeDoUsuario = "⚠ USUÁRIO NÃO INFORMADO ⚠";
+                }
+                else
+                {
+                    _nomeDoUsuario = value;
+                }
+
             }
-            else
-            {
-                PesoDoPallet = 0.0;
-                Console.WriteLine("⚠ Resposta inválida! Peso do pallet considerado como 0.0");
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("          🔎 Dados do Produto           ");
-            Console.WriteLine("╚══════════════════════════════════════╝");
-
-            Console.Write("➡ Fornecedor: ");
-            Fornecedor = Console.ReadLine().ToUpper();
-
-            Console.Write("➡ Produto: ");
-            NomeProduto = Console.ReadLine().ToUpper();
-
-            Console.Write("➡ Peso Bruto (kg): ");
-            PesoBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-            Console.Write("➡ Quantidade de Peças: ");
-            QuantidadeDePeca = int.Parse(Console.ReadLine());
-
-            Console.Write("➡ Peso da Embalagem por Peça (kg): ");
-            EmbalagemPeca = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-            Console.Write("➡ Quantidade de Caixas: ");
-            QuantidadeDeCaixa = int.Parse(Console.ReadLine());
-
-            Console.Write("➡ Peso da Caixa (kg): ");
-            PesoDaCaixa = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-            Console.Write("➡ Nome do Operador: ");
-            NomeDoUsuario = Console.ReadLine();
-
-            Console.WriteLine();
-            
-        }
+        }        
 
         public double PesoEmbalagem()
         {
