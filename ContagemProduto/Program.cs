@@ -46,12 +46,25 @@ namespace ContagemProduto
 
                         Console.Write("👉 Já foi tirado o peso do pallet? (S/N): ");
                         string respostaPallet = Console.ReadLine().ToUpper();
-
-                        double pesoDoPallet = 0.0;
+                        double pesoDoPallet;
                         if (respostaPallet == "N")
                         {
-                            Console.Write("➡ Informe o peso do Pallet: ");
-                            pesoDoPallet = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                                       
+                                while (true)
+                                {
+                                    Console.Write("➡ Informe o peso do Pallet: ");
+                                    string entradaPallet = Console.ReadLine();
+                                    if (double.TryParse(entradaPallet, NumberStyles.Any, CultureInfo.InvariantCulture, out pesoDoPallet))
+                                    {
+                                        Console.WriteLine($"✅ Peso do Pallet registrado: {pesoDoPallet} kg");
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 20.5).");
+                                    }
+                                }
+                            
                         }
                         else if (respostaPallet == "S")
                         {
@@ -73,22 +86,83 @@ namespace ContagemProduto
                         string fornecedor = Console.ReadLine().ToUpper();
 
                         Console.Write("➡ Produto: ");
-                        string nomeProduto = Console.ReadLine().ToUpper();
+                        string nomeProduto = Console.ReadLine().ToUpper();                        
+                        
+                        double pesoBruto;
+                        while (true)
+                        {
+                            Console.Write("➡ Peso Bruto (kg): ");
+                            String entradaPesoBruto = Console.ReadLine();
 
-                        Console.Write("➡ Peso Bruto (kg): ");
-                        double pesoBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-                        Console.Write("➡ Quantidade de Peças: ");
-                        int quantidadeDePeca = int.Parse(Console.ReadLine());
-
-                        Console.Write("➡ Peso da Embalagem por Peça (kg): ");
-                        double embalagemPeca = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-                        Console.Write("➡ Quantidade de Caixas: ");
-                        int quantidadeDeCaixa = int.Parse(Console.ReadLine());
-
-                        Console.Write("➡ Peso da Caixa (kg): ");
-                        double pesoDaCaixa = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                            if (double.TryParse(entradaPesoBruto, NumberStyles.Any, CultureInfo.InvariantCulture, out pesoBruto))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 996.0 ou 996).");
+                                }
+                        }                       
+                        
+                        int quantidadeDePeca;
+                        while (true)
+                        {
+                            Console.Write("➡ Quantidade de Peças: ");
+                            string entradaQuantidadeDePeca = Console.ReadLine();
+                            if (int.TryParse(entradaQuantidadeDePeca, out quantidadeDePeca))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 6).");
+                                }
+                        }
+                        
+                        double embalagemPeca;
+                        while (true)
+                        {
+                            Console.Write("➡ Peso da Embalagem por Peça (kg): ");
+                            string entradaEmbalagemPeca = Console.ReadLine();
+                            if (double.TryParse(entradaEmbalagemPeca, NumberStyles.Any, CultureInfo.InvariantCulture, out embalagemPeca))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 0.014).");
+                                }
+                        }
+                        
+                        int quantidadeDeCaixa;
+                        while (true)
+                        {
+                            Console.Write("➡ Quantidade de Caixas: ");
+                            string entradaQuantidadeDeCaixa = Console.ReadLine(); 
+                            if (int.TryParse(entradaQuantidadeDeCaixa, out quantidadeDeCaixa))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 35).");
+                                }     
+                        }
+                                                
+                        double pesoDaCaixa;
+                        while (true)
+                        {
+                            Console.Write("➡ Peso da Caixa (kg): ");
+                            string entradaPesoDaCaixa = Console.ReadLine();
+                            if (double.TryParse(entradaPesoDaCaixa, NumberStyles.Any, CultureInfo.InvariantCulture, out pesoDaCaixa))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 0.850).");
+                                }
+                        }                        
 
                         Console.Write("➡ Nome do Operador: ");
                         string nomeDoUsuario = Console.ReadLine();

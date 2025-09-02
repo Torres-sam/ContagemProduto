@@ -17,7 +17,7 @@ namespace ContagemProduto.Models
             QuantidadeDeCaixa = quantidadeDeCaixa;
             PesoDaCaixa = pesoDaCaixa;
             NomeDoUsuario = nomeDoUsuario;
-            PesoDoPallet = 0.0; // valor padrão
+            PesoDoPallet = pesoDoPallet;
         }
         private string _fornecedor;
         public string Fornecedor
