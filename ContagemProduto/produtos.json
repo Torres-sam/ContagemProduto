@@ -1,0 +1,74 @@
+[
+  {
+    "DataCadastro": "2025-10-25T19:54:33.4984337-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "ACEM RESERVA",
+    "PesoBruto": 1020,
+    "QuantidadeDePeca": 2,
+    "EmbalagemPeca": 0.014,
+    "QuantidadeDeCaixa": 30,
+    "PesoDaCaixa": 0.85,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  },
+  {
+    "DataCadastro": "2025-10-25T19:59:00.1326557-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "PALETA RESERVA",
+    "PesoBruto": 885,
+    "QuantidadeDePeca": 2,
+    "EmbalagemPeca": 0.014,
+    "QuantidadeDeCaixa": 35,
+    "PesoDaCaixa": 0.845,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  },
+  {
+    "DataCadastro": "2025-10-25T19:59:52.7406557-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "COSTELA TRASEIRA RESERVA",
+    "PesoBruto": 1085,
+    "QuantidadeDePeca": 2,
+    "EmbalagemPeca": 0.045,
+    "QuantidadeDeCaixa": 50,
+    "PesoDaCaixa": 0.987,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  },
+  {
+    "DataCadastro": "2025-10-25T20:00:34.8520382-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "CONTRA FILE PEDA\u00C7O",
+    "PesoBruto": 1054,
+    "QuantidadeDePeca": 4,
+    "EmbalagemPeca": 0.014,
+    "QuantidadeDeCaixa": 55,
+    "PesoDaCaixa": 0.845,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  },
+  {
+    "DataCadastro": "2025-10-25T20:01:20.7638059-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "PEITO BOVINO RESERVA",
+    "PesoBruto": 547.5,
+    "QuantidadeDePeca": 2,
+    "EmbalagemPeca": 0.014,
+    "QuantidadeDeCaixa": 25,
+    "PesoDaCaixa": 0.874,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  },
+  {
+    "DataCadastro": "2025-10-25T20:09:57.4743565-03:00",
+    "Fornecedor": "JBS",
+    "NomeProduto": "CORA\u00C7\u00C3O DE ALCATRA RESERVA",
+    "PesoBruto": 544,
+    "QuantidadeDePeca": 4,
+    "EmbalagemPeca": 0.011,
+    "QuantidadeDeCaixa": 25,
+    "PesoDaCaixa": 0.888,
+    "PesoDoPallet": 0,
+    "NomeDoUsuario": "SAMUEL"
+  }
+]

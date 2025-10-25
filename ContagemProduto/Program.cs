@@ -1,24 +1,39 @@
 ﻿using System;
 using System.Globalization;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using ContagemProduto.Models;
 
 namespace ContagemProduto
 {
     internal class Program
     {
+        static string caminhoArquivo = "produtos.json";
+
+        static void SalvarProdutos(List<Produto> produtos)
+        {
+            string json = JsonSerializer.Serialize(produtos, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(caminhoArquivo, json);
+        }
+
+        static List<Produto> CarregarProdutos()
+        {
+            if (File.Exists(caminhoArquivo))
+            {
+                string json = File.ReadAllText(caminhoArquivo);
+                return JsonSerializer.Deserialize<List<Produto>>(json);
+            }
+            return new List<Produto>();
+        }
+
         static void Main(string[] args)
         {
-            // Lista onde serão armazenados todos os produtos cadastrados
-            List<Produto> produtos = new List<Produto>();
-
-            // Controla se o menu principal deve continuar aparecendo
+            List<Produto> produtos = CarregarProdutos();
             bool exibirMenu = true;
 
-            // Loop principal do programa
             while (exibirMenu)
             {
-                // Limpa a tela e mostra o menu principal
                 Console.Clear();
                 Console.WriteLine("╔══════════════════════════════════════════════╗");
                 Console.WriteLine("     📦 Bem-vindo ao Sistema de Conferência    ");
@@ -33,24 +48,21 @@ namespace ContagemProduto
                 Console.WriteLine(" ──────────────────────────────────────────────");
                 Console.Write(" 👉 Opção: ");
 
-                // Lê a opção escolhida pelo usuário
                 switch (Console.ReadLine())
                 {
-                    case "1": // Cadastro de um novo produto
-
+                    case "1":
                         bool cadastrarOutro = true;
                         while (cadastrarOutro)
-                        {   
+                        {
                             Console.Clear();
-                            Console.WriteLine("╔══════════════════════════════════════╗");                                                
-                            Console.WriteLine("         ✨ Cadastro de Produto         ");                                               
-                            Console.WriteLine("╚══════════════════════════════════════╝");                        
+                            Console.WriteLine("╔══════════════════════════════════════╗");
+                            Console.WriteLine("         ✨ Cadastro de Produto         ");
+                            Console.WriteLine("╚══════════════════════════════════════╝");
                             Console.WriteLine("╔══════════════════════════════════════╗");
                             Console.WriteLine(" 📝 Preencha as Informações do Produto ");
                             Console.WriteLine("╚══════════════════════════════════════╝");
                             Console.WriteLine();
 
-                            // Pergunta sobre o peso do pallet
                             double pesoDoPallet = 0.0;
                             string respostaPallet;
 
@@ -61,7 +73,6 @@ namespace ContagemProduto
 
                                 if (respostaPallet == "N")
                                 {
-                                    // Se o peso do pallet ainda não foi descontado, o usuário deve informar
                                     while (true)
                                     {
                                         Console.Write("➡ Informe o peso do Pallet: ");
@@ -82,7 +93,6 @@ namespace ContagemProduto
                                 }
                                 else if (respostaPallet == "S")
                                 {
-                                    // Se já foi tirado, o valor será zero
                                     pesoDoPallet = 0.0;
                                     break;
                                 }
@@ -98,14 +108,12 @@ namespace ContagemProduto
                             Console.WriteLine("          🔎 Dados do Produto           ");
                             Console.WriteLine("╚══════════════════════════════════════╝");
 
-                            // Cadastro dos dados principais do produto
                             Console.Write("➡ Fornecedor: ");
                             string fornecedor = Console.ReadLine().ToUpper();
 
                             Console.Write("➡ Produto: ");
-                            string nomeProduto = Console.ReadLine().ToUpper();                        
-                        
-                            // Peso Bruto
+                            string nomeProduto = Console.ReadLine().ToUpper();
+
                             double pesoBruto;
                             while (true)
                             {
@@ -116,9 +124,8 @@ namespace ContagemProduto
                                     break;
                                 else
                                     Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 996.0 ou 996).");
-                            }                       
+                            }
 
-                            // Quantidade de peças
                             int quantidadeDePeca;
                             while (true)
                             {
@@ -129,8 +136,7 @@ namespace ContagemProduto
                                 else
                                     Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 6).");
                             }
-                        
-                            // Peso da embalagem por peça
+
                             double embalagemPeca;
                             while (true)
                             {
@@ -141,20 +147,18 @@ namespace ContagemProduto
                                 else
                                     Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 0.014).");
                             }
-                        
-                            // Quantidade de caixas
+
                             int quantidadeDeCaixa;
                             while (true)
                             {
                                 Console.Write("➡ Quantidade de Caixas: ");
-                                string entradaQuantidadeDeCaixa = Console.ReadLine(); 
+                                string entradaQuantidadeDeCaixa = Console.ReadLine();
                                 if (int.TryParse(entradaQuantidadeDeCaixa, out quantidadeDeCaixa))
                                     break;
                                 else
-                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 35).");     
+                                    Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 35).");
                             }
-                                                            
-                            // Peso da caixa
+
                             double pesoDaCaixa;
                             while (true)
                             {
@@ -164,24 +168,28 @@ namespace ContagemProduto
                                     break;
                                 else
                                     Console.WriteLine("⚠ Valor inválido! Digite apenas números (ex: 0.850).");
-                            }                        
+                            }
 
                             Console.Write("➡ Nome do Operador: ");
                             string nomeDoUsuario = Console.ReadLine();
 
-                            // Criação do objeto Produto com os dados informados
                             Produto novoProduto = new Produto(fornecedor, nomeProduto, pesoBruto,
                                                             quantidadeDePeca, embalagemPeca,
                                                             quantidadeDeCaixa, pesoDaCaixa,
                                                             nomeDoUsuario, pesoDoPallet);
 
-                            // Adiciona o produto à lista
                             produtos.Add(novoProduto);
+                            SalvarProdutos(produtos);
 
-                            Console.WriteLine("✅ Produto cadastrado com sucesso!");
+                            Console.Clear();
+                            Console.WriteLine("╔══════════════════════════════════════╗");
+                            Console.WriteLine("          🔎 Prévia do Produto          ");
+                            Console.WriteLine("╚══════════════════════════════════════╝");
+
+                            novoProduto.MostrarDadosResumidos();
+
+
                             Console.WriteLine();
-
-                            // Pergunta se deseja cadastrar outro produto
                             Console.Write("Deseja cadastrar outro produto? (S/N): ");
                             string resposta = Console.ReadLine().ToUpper();
                             if (resposta != "S")
@@ -194,7 +202,7 @@ namespace ContagemProduto
                         Console.ReadLine();
                         break;
 
-                    case "2": // Visualizar produtos
+                    case "2":
                         Console.Clear();
                         Console.WriteLine("╔══════════════════════════════════════╗");
                         Console.WriteLine("         📋 Lista de Produtos           ");
@@ -206,7 +214,6 @@ namespace ContagemProduto
                         }
                         else
                         {
-                            // Mostra a lista resumida de produtos
                             int i = 1;
                             foreach (var p in produtos)
                             {
@@ -215,7 +222,6 @@ namespace ContagemProduto
                                 i++;
                             }
 
-                            // Pergunta se o usuário quer ver os detalhes de algum produto
                             string opcao;
                             while (true)
                             {
@@ -225,54 +231,35 @@ namespace ContagemProduto
 
                                 if (opcao == "S")
                                 {
-                                    bool escolhido = false;
-                                    while (!escolhido)
+                                    Console.Write("Digite o número do produto (ou 0 para sair): ");
+                                    if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= produtos.Count)
                                     {
-                                        Console.Write("Digite o número do produto (ou 0 para sair): ");
-                                        int escolha = int.Parse(Console.ReadLine());
-
-                                        if (escolha == 0)
+                                        Console.Clear();
+                                        produtos[escolha - 1].MostrarDados();
+                                        int a = 1;
+                                        foreach (var p in produtos)
                                         {
-                                            Console.WriteLine("↩ Voltando ao menu...");
-                                            escolhido = true;
+                                            Console.Write($" #{a} ");
+                                            //p.MostrarDadosResumidos();
+                                            Console.WriteLine($"➡ Produto: {p.NomeProduto} | ⚖ Peso Líquido: {p.PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)}");
+                                            a++;
                                         }
-                                        else if (escolha > 0 && escolha <= produtos.Count)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("╔══════════════════════════════════════╗");
-                                            Console.WriteLine("          🔎 Detalhes do Produto        ");
-                                            Console.WriteLine("╚══════════════════════════════════════╝");
 
-                                            // Exibe todos os dados do produto escolhido
-                                            produtos[escolha - 1].MostrarDados();
-
-                                            Console.Write(" 👉 Quer consultar outro produto? (S/N): ");
-                                            string repetir = Console.ReadLine().ToUpper();
-                                            if (repetir != "S")
-                                                escolhido = true;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine(" ❌ Número inválido, tente novamente!");
-                                        }
+                                    }
+                                    else if (escolha == 0)
+                                    {
+                                        break;
                                     }
                                 }
                                 else if (opcao == "N")
-                                {
                                     break;
-                                }
-                                else
-                                { 
-                                    Console.WriteLine(" ❌ Resposta inválida! Digite apenas S ou N.");
-                                }
                             }
                         }
-
                         Console.WriteLine("Pressione ENTER para continuar...");
                         Console.ReadLine();
                         break;
 
-                    case "3": // Remover produto
+                    case "3":
                         Console.Clear();
                         Console.WriteLine("╔══════════════════════════════════════╗");
                         Console.WriteLine("             🗑 Apagar Produto           ");
@@ -284,58 +271,32 @@ namespace ContagemProduto
                         }
                         else
                         {
-                            // Lista os produtos com índice
                             for (int i = 0; i < produtos.Count; i++)
-                            {
                                 Console.WriteLine($" #{i + 1} - {produtos[i].NomeProduto}");
-                            }
 
                             Console.Write(" 👉 Digite o número do produto a remover (ou 0 para cancelar): ");
-                            int escolha = int.Parse(Console.ReadLine());
-                            Console.WriteLine("────────────────────────────────────");
-
-                            if (escolha == 0)
+                            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= produtos.Count)
                             {
-                                Console.WriteLine("↩ Operação cancelada. Nenhum produto foi removido.");
-                            }
-                            else
-                            {
-                                int index = escolha - 1;
-                                if (index >= 0 && index < produtos.Count)
+                                Console.Write($"⚠ Tem certeza que deseja remover \"{produtos[escolha - 1].NomeProduto}\"? (S/N): ");
+                                if (Console.ReadLine().ToUpper() == "S")
                                 {
-                                    // Confirmação antes de remover
-                                    Console.WriteLine($"⚠ Tem certeza que deseja remover o produto \"{produtos[index].NomeProduto}\"? (S/N): ");
-                                    string confirmacao = Console.ReadLine().ToUpper();
-
-                                    if (confirmacao == "S")
-                                    {
-                                        produtos.RemoveAt(index);
-                                        Console.WriteLine("✅ Produto removido com sucesso!");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("↩ Remoção cancelada.");
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine(" ❌ Número inválido!");
+                                    produtos.RemoveAt(escolha - 1);
+                                    SalvarProdutos(produtos);
+                                    Console.WriteLine("✅ Produto removido com sucesso!");
                                 }
                             }
                         }
-
                         Console.WriteLine("Pressione ENTER para continuar...");
                         Console.ReadLine();
                         break;
 
-                    case "4": // Sair do programa
-                        Console.WriteLine("👋 Encerrando o programa...");
+                    case "4":
                         exibirMenu = false;
+                        Console.WriteLine("👋 Encerrando o programa...");
                         break;
 
-                    default: // Caso o usuário digite opção inválida
+                    default:
                         Console.WriteLine(" ❌ Opção inválida!");
-                        Console.WriteLine("Pressione ENTER para continuar...");
                         Console.ReadLine();
                         break;
                 }

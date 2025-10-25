@@ -5,8 +5,6 @@ namespace ContagemProduto.Models
 {
     public class Produto
     {
-        // Construtor da classe Produto
-        // Recebe todos os dados necessários para criar o objeto
         public Produto(string fornecedor, string nomeProduto, double pesoBruto,
         int quantidadeDePeca, double embalagemPeca,
         int quantidadeDeCaixa, double pesoDaCaixa, string nomeDoUsuario, double pesoDoPallet = 0.0)
@@ -20,39 +18,25 @@ namespace ContagemProduto.Models
             PesoDaCaixa = pesoDaCaixa;
             NomeDoUsuario = nomeDoUsuario;
             PesoDoPallet = pesoDoPallet;
+            DataCadastro = DateTime.Now; // 🔹 Salva data/hora no momento do cadastro
         }
 
-        // Campo privado para armazenar fornecedor
+        public DateTime DataCadastro { get; set; }
+
         private string _fornecedor;
         public string Fornecedor
         {
-            get { return _fornecedor; }
-            set
-            {
-                // Se não for informado, atribui aviso
-                if (value == "")
-                    _fornecedor = "⚠ FORNECEDOR NÃO INFORMADO ⚠";
-                else
-                    _fornecedor = value.ToUpper(); // Sempre em maiúsculo
-            }
+            get => _fornecedor;
+            set => _fornecedor = string.IsNullOrWhiteSpace(value) ? "⚠ FORNECEDOR NÃO INFORMADO ⚠" : value.ToUpper();
         }
 
-        // Campo privado para armazenar o nome do produto
         private string _nomeProduto;
         public string NomeProduto
         {
-            get { return _nomeProduto; }
-            set
-            {
-                // Se não for informado, atribui aviso
-                if (value == "")
-                    _nomeProduto = "⚠ PRODUTO NÃO INFORMADO ⚠";
-                else
-                    _nomeProduto = value.ToUpper();
-            }
+            get => _nomeProduto;
+            set => _nomeProduto = string.IsNullOrWhiteSpace(value) ? "⚠ PRODUTO NÃO INFORMADO ⚠" : value.ToUpper();
         }
 
-        // Demais propriedades simples do produto
         public double PesoBruto { get; set; }
         public int QuantidadeDePeca { get; set; }
         public double EmbalagemPeca { get; set; }
@@ -60,41 +44,34 @@ namespace ContagemProduto.Models
         public double PesoDaCaixa { get; set; }
         public double PesoDoPallet { get; set; }
 
-        // Campo privado para nome do usuário
         private string _nomeDoUsuario;
         public string NomeDoUsuario
         {
-            get { return _nomeDoUsuario.ToUpper(); } // sempre retorna em maiúsculo
-            set
-            {
-                if (value == "")
-                    _nomeDoUsuario = "⚠ USUÁRIO NÃO INFORMADO ⚠";
-                else
-                    _nomeDoUsuario = value;
-            }
+            get => _nomeDoUsuario.ToUpper();
+            set => _nomeDoUsuario = string.IsNullOrWhiteSpace(value) ? "⚠ USUÁRIO NÃO INFORMADO ⚠" : value;
         }
 
-        // Método que calcula o peso total das embalagens
         public double PesoEmbalagem()
         {
             return ((QuantidadeDePeca * EmbalagemPeca) + PesoDaCaixa) * QuantidadeDeCaixa;
         }
 
-        // Método que calcula o peso líquido do produto
-        // Fórmula: PesoBruto - PesoEmbalagem - PesoDoPallet
         public double PesoLiquido()
         {
             double pesoDaEmbalagem = PesoEmbalagem();
             return PesoBruto - pesoDaEmbalagem - PesoDoPallet;
         }
 
-        // Exibe os dados básicos do produto (resumidos)
         public void MostrarDadosResumidos()
         {
-            Console.WriteLine($"📦 Produto: {NomeProduto} | ⚖ Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine();
+            Console.WriteLine($"➡ Produto: {NomeProduto}");
+            Console.WriteLine($"➡ Peso Bruto: {PesoBruto.ToString("F3", CultureInfo.InvariantCulture)} kg");
+            Console.WriteLine($"➡ Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)}");
+            Console.WriteLine($"➡ Quantidade de caixas: {QuantidadeDeCaixa}");
+            Console.WriteLine();
         }
 
-        // Exibe os dados completos do produto (detalhados)
         public void MostrarDados()
         {
             Console.WriteLine("╔══════════════════════════════════════╗");
@@ -109,7 +86,6 @@ namespace ContagemProduto.Models
             Console.WriteLine($"➡ Quantidade de Caixas: {QuantidadeDeCaixa}");
             Console.WriteLine($"➡ Peso da Caixa: {PesoDaCaixa.ToString("F3", CultureInfo.InvariantCulture)} kg");
 
-            // Só mostra o peso do pallet se foi informado
             if (PesoDoPallet != 0.0)
                 Console.WriteLine($"➡ Peso do Pallet: {PesoDoPallet.ToString("F3", CultureInfo.InvariantCulture)} kg");
             else
@@ -119,10 +95,8 @@ namespace ContagemProduto.Models
             Console.WriteLine($"📦 Peso da Embalagem: {PesoEmbalagem().ToString("F3", CultureInfo.InvariantCulture)} kg");
             Console.WriteLine($"⚖ Peso Líquido: {PesoLiquido().ToString("F3", CultureInfo.InvariantCulture)} kg");
             Console.WriteLine("────────────────────────────────────────");
-
-            // Exibe informações adicionais de contexto
-            Console.WriteLine($"📅 Data de Pesagem: {DateTime.Now:dd/MM/yyyy}");
-            Console.WriteLine($"⏰ Hora de Pesagem: {DateTime.Now:HH:mm:ss}");
+            Console.WriteLine($"📅 Data de Cadastro: {DataCadastro:dd/MM/yyyy}");
+            Console.WriteLine($"⏰ Hora de Cadastro: {DataCadastro:HH:mm:ss}");
             Console.WriteLine($"👤 Operador: {NomeDoUsuario}");
             Console.WriteLine("════════════════════════════════════════");
         }
